@@ -14,5 +14,6 @@ import negocio.FuncionarioFuncao;
  */
 public interface IFuncionarioFuncaoDAO {
     public void adiciona(FuncionarioFuncao funcionarioFuncao); 
+    public FuncionarioFuncao buscarPorID(Integer Id);
     public List<FuncionarioFuncao> listarTodos();
 }

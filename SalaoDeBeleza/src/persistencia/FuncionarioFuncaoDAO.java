@@ -60,5 +60,27 @@ public class FuncionarioFuncaoDAO implements IFuncionarioFuncaoDAO {
         }    
         
     }
+
+    @Override
+    public FuncionarioFuncao buscarPorID(Integer Id) {
+        String sql = "SELECT * FROM FUNCIONARIOFUNCAO"
+                + " WHERE id = (?)";
+        FuncionarioFuncao funcionarioFuncao = new FuncionarioFuncao() ;
+        try 
+        {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, Id);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                funcionarioFuncao = new FuncionarioFuncao(rs.getInt("ID"), rs.getString("DESCRICAO"));
+            }
+            
+        }
+        catch (SQLException ex) {    
+            System.err.println("Houve um erro..." + ex.getMessage());
+        }    
+        return funcionarioFuncao;
+    }
+    
     
 }

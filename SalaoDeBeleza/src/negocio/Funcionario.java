@@ -12,6 +12,7 @@ import java.util.Calendar;
  * @author joaos
  */
 public class Funcionario {
+    private Integer Id;
     private String Nome;
     private String CPF;
     private Calendar DataNascimento;
@@ -27,8 +28,8 @@ public class Funcionario {
         this.IdFuncao = IdFuncao;
         this.IdUsuario = IdUsuario;
     }
-    
-    public Funcionario(String Nome, String CPF, Calendar DataNascimento, int ComissaoPorcentagemPadrao, int IdFuncao) {
+    public Funcionario(Integer Id, String Nome, String CPF, int IdFuncao) {
+        this.Id = Id;
         this.Nome = Nome;
         this.CPF = CPF;
         this.DataNascimento = DataNascimento;
@@ -36,6 +37,16 @@ public class Funcionario {
         this.IdFuncao = IdFuncao;
         this.IdUsuario = IdUsuario;
     }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer Id) {
+        this.Id = Id;
+    }
+    
+
 
     public String getNome() {
         return Nome;

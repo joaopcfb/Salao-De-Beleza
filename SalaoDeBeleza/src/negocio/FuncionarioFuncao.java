@@ -10,16 +10,16 @@ package negocio;
  * @author joaos
  */
 public class FuncionarioFuncao {
-    int id;
+    Integer id;
     String Descricao;
 
-    public FuncionarioFuncao(int id, String Descricao) {
+    public FuncionarioFuncao(Integer id, String Descricao) {
         this.id = id;
         this.Descricao = Descricao;
     }
 
     public FuncionarioFuncao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public FuncionarioFuncao(String Descricao) {

@@ -8,8 +8,12 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import negocio.Funcionario;
+import negocio.FuncionarioFuncao;
 
 /**
  *
@@ -48,5 +52,62 @@ public class FuncionarioDAO implements IFuncionarioDAO {
         
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Funcionario> listarComFiltro(Integer Id, String Nome, String CPF, Integer idFuncao) {
+        String sql = "SELECT * FROM FUNCIONARIO";
+        
+        boolean where = false;
+        if (Id != null) {
+            where = true;
+            sql += " WHERE"; 
+            sql += " Id = " + Id;
+        }
+        
+        if (Nome != null) {
+            if (!where) {
+                sql += " WHERE"; 
+            }
+            sql += " Nome LIKE " + "'%" + Nome + "%'";
+        }
+        
+        if (CPF != null) {
+            if (!where) {
+                sql += " WHERE"; 
+            }
+            sql += " CPF = " + "'" + CPF + "'";
+        }
+        
+        if (CPF != null) {
+            if (!where) {
+                sql += " WHERE"; 
+            }
+            sql += " idFuncao = " + idFuncao;
+        }
+        
+        List<Funcionario> funcionarios = new ArrayList<Funcionario>() ;
+        
+        try 
+        {
+             
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                funcionarios.add(new Funcionario(rs.getInt("Id"), rs.getString("Nome"), rs.getString("CPF"),rs.getInt("IdFuncao")));
+            }
+        }
+        catch (SQLException ex) {    
+            System.err.println("Houve um erro..." + ex.getMessage());
+        }    
+        return funcionarios;
+    }
+
+    @Override
+    public Funcionario buscarPorID(Integer Id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }
