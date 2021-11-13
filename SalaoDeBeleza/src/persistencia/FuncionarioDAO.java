@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import negocio.Funcionario;
 import negocio.FuncionarioFuncao;
@@ -105,9 +106,30 @@ public class FuncionarioDAO implements IFuncionarioDAO {
 
     @Override
     public Funcionario buscarPorID(Integer Id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM FUNCIONARIO"
+                + " WHERE id = (?)";
+        Funcionario funcionario = new Funcionario() ;
+        try 
+        {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, Id);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                //Alterar construtor para receber data de nascimento e porcentagem comissao padrao
+                funcionario = new Funcionario((Integer) rs.getInt("ID"), rs.getString("Nome"),  rs.getString("CPF"), toCalendar(rs.getDate("DataNascimento")), rs.getInt("ComissaoPorcentagemPadrao"),  rs.getInt("IdFuncao"));
+            }
+            
+        }
+        catch (SQLException ex) {    
+            System.err.println("Houve um erro..." + ex.getMessage());
+        }    
+        return funcionario; //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    public static Calendar toCalendar(Date date){ 
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    return cal;
+}
     
 }

@@ -5,7 +5,9 @@
  */
 package apresentacao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import negocio.Funcionario;
@@ -49,13 +51,13 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
         txtDataNasc = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        txtDataInclusao = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtComissaoPadrao = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtCPF = new javax.swing.JTextField();
         txtTermo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cbCampo = new javax.swing.JComboBox<>();
@@ -78,11 +80,22 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbListagemFunc.getTableHeader().setReorderingAllowed(false);
+        tbListagemFunc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbListagemFuncMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbListagemFuncMouseEntered(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbListagemFunc);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionario"));
 
         jLabel1.setText("Nome");
+
+        txtNome.setEditable(false);
 
         paFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         paFoto.setPreferredSize(new java.awt.Dimension(150, 150));
@@ -100,12 +113,15 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data De Nascimento:");
 
+        txtDataNasc.setEditable(false);
+
         jLabel3.setText("Data de Inclusao:");
 
-        jLabel5.setText("DATAINCLU");
+        txtDataInclusao.setText(" ");
 
         jLabel6.setText("Comissão Padrão:");
 
+        txtComissaoPadrao.setEditable(false);
         txtComissaoPadrao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtComissaoPadraoActionPerformed(evt);
@@ -114,14 +130,14 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Código:");
 
-        jLabel10.setText("CODIGO");
+        txtCodigo.setText(" ");
 
         jLabel11.setText("CPF:");
 
-        jTextField2.setText("jTextField2");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtCPF.setEditable(false);
+        txtCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtCPFActionPerformed(evt);
             }
         });
 
@@ -136,18 +152,18 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtComissaoPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtComissaoPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDataNasc)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -159,8 +175,9 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel10))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtDataInclusao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addComponent(paFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -175,7 +192,7 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
                             .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(txtDataInclusao))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -183,7 +200,7 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel11)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
@@ -192,7 +209,7 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9)
-                                    .addComponent(jLabel10)))))
+                                    .addComponent(txtCodigo)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(paFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -285,31 +302,64 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtComissaoPadraoActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtCPFActionPerformed
+
+    private void tbListagemFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListagemFuncMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            int numLinhaSelecionada = (int) tbListagemFunc.getSelectedRow();
+            int codFuncSelecionado = Integer.parseInt(tbListagemFunc.getValueAt(numLinhaSelecionada, 0).toString());
+
+            IFuncionarioDAO dao = new FuncionarioDAO();
+            Funcionario funcionario = new Funcionario();
+            funcionario = dao.buscarPorID(codFuncSelecionado);
+
+            txtNome.setText(funcionario.getNome());
+            txtComissaoPadrao.setText(String.valueOf(funcionario.getComissaoPorcentagemPadrao()));
+            txtCPF.setText(funcionario.getCPF());
+            
+            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar dataNasc = funcionario.getDataNascimento();
+     
+            txtDataNasc.setText(s.format(dataNasc.getTime()));
+            
+        
+        }
+        
+    }//GEN-LAST:event_tbListagemFuncMouseClicked
+
+    private void tbListagemFuncMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListagemFuncMouseEntered
+        // TODO add your handling code here:
+        //txtNome.add("teste");
+       
+        //txtDataNasc.setCalendar(funcionario.getDataNascimento());
+        
+        
+    }//GEN-LAST:event_tbListagemFuncMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbCampo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel paFoto;
     private javax.swing.JTable tbListagemFunc;
+    private javax.swing.JTextField txtCPF;
+    private javax.swing.JLabel txtCodigo;
     private javax.swing.JTextField txtComissaoPadrao;
+    private javax.swing.JLabel txtDataInclusao;
     private javax.swing.JTextField txtDataNasc;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTermo;

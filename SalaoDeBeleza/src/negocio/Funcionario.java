@@ -37,6 +37,20 @@ public class Funcionario {
         this.IdFuncao = IdFuncao;
         this.IdUsuario = IdUsuario;
     }
+    
+    public Funcionario(Integer Id, String Nome, String CPF, Calendar DataNascimento, int ComissaoPorcentagemPadrao, int IdFuncao) {
+        this.Id = Id;
+        this.Nome = Nome;
+        this.CPF = CPF;
+        this.DataNascimento = DataNascimento;
+        this.ComissaoPorcentagemPadrao = ComissaoPorcentagemPadrao;
+        this.IdFuncao = IdFuncao;
+        this.IdUsuario = IdUsuario;
+    }
+
+    public Funcionario() {
+         //To change body of generated methods, choose Tools | Templates.
+    }
 
     public Integer getId() {
         return Id;
