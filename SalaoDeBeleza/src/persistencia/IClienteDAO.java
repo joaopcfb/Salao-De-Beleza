@@ -15,5 +15,5 @@ import negocio.Cliente;
 public interface IClienteDAO {
     public void adiciona(Cliente cliente);
     public Cliente buscarPorID(Integer Id);
-    public List<Cliente> listarComFiltro(Integer Id, String Nome, String CPF, Integer idFuncao);
+    public List<Cliente> listarComFiltro(Integer Id, String Nome, String CPF, String Telefone);
 }

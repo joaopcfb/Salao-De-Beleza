@@ -315,15 +315,17 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
             IFuncionarioDAO dao = new FuncionarioDAO();
             Funcionario funcionario = new Funcionario();
             funcionario = dao.buscarPorID(codFuncSelecionado);
-
+            
+            limpar();
             txtNome.setText(funcionario.getNome());
             txtComissaoPadrao.setText(String.valueOf(funcionario.getComissaoPorcentagemPadrao()));
             txtCPF.setText(funcionario.getCPF());
             
-            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-            Calendar dataNasc = funcionario.getDataNascimento();
-     
-            txtDataNasc.setText(s.format(dataNasc.getTime()));
+            if (funcionario.getDataNascimento() != null) {
+                SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar dataNasc = funcionario.getDataNascimento();
+                txtDataNasc.setText(s.format(dataNasc.getTime()));              
+            }
             
         
         }
@@ -331,11 +333,7 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbListagemFuncMouseClicked
 
     private void tbListagemFuncMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListagemFuncMouseEntered
-        // TODO add your handling code here:
-        //txtNome.add("teste");
-       
-        //txtDataNasc.setCalendar(funcionario.getDataNascimento());
-        
+        // TODO add your handling code here:      
         
     }//GEN-LAST:event_tbListagemFuncMouseEntered
 
@@ -378,9 +376,18 @@ public class fmListagemDeFuncionario extends javax.swing.JInternalFrame {
     }
     
     public static void deletaTodasAsLinhas(final DefaultTableModel model) {
-    for( int i = model.getRowCount() - 1; i >= 0; i-- ) {
-        model.removeRow(i);
+        for( int i = model.getRowCount() - 1; i >= 0; i-- ) {
+            model.removeRow(i);
+        }
     }
-}
+    private void limpar()
+    {
+        txtNome.setText("");
+        txtCPF.setText("");
+        txtComissaoPadrao.setText("");
+        txtDataNasc.setText("");
+
+    }
+
 }
 

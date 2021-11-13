@@ -79,7 +79,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             sql += " CPF = " + "'" + CPF + "'";
         }
         
-        if (CPF != null) {
+        if (idFuncao != null) {
             if (!where) {
                 sql += " WHERE"; 
             }
@@ -126,10 +126,10 @@ public class FuncionarioDAO implements IFuncionarioDAO {
         return funcionario; //To change body of generated methods, choose Tools | Templates.
     }
     
-    public static Calendar toCalendar(Date date){ 
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(date);
-    return cal;
+    private static Calendar toCalendar(Date date){ 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
 }
     
 }

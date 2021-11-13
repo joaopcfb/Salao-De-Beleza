@@ -25,6 +25,25 @@ public class Cliente {
         this.Telefone = Telefone;
     }
 
+    public Cliente(Integer Id, String Nome, String CPF, String Telefone) {
+        this.Id = Id;
+        this.Nome = Nome;
+        this.CPF = CPF;
+        this.Telefone = Telefone;
+    }
+
+    public Cliente(Integer Id, String Nome, String CPF, Calendar DataNascimento, String Telefone) {
+        this.Id = Id;
+        this.Nome = Nome;
+        this.CPF = CPF;
+        this.DataNascimento = DataNascimento;
+        this.Telefone = Telefone;
+    }
+
+    public Cliente() {
+        
+    }
+
     public void setId(Integer Id) {
         this.Id = Id;
     }
