@@ -12,11 +12,11 @@ import java.util.Calendar;
  * @author joaos
  */
 public class Cliente {
-    Integer Id;
-    String Nome;
-    String CPF;
-    Calendar DataNascimento;
-    String Telefone;
+    private Integer Id;
+    private String Nome;
+    private String CPF;
+    private Calendar DataNascimento;
+    private String Telefone;
 
     public Cliente(String Nome, String CPF, Calendar DataNascimento, String Telefone) {
         this.Nome = Nome;
@@ -82,6 +82,11 @@ public class Cliente {
 
     public String getTelefone() {
         return Telefone;
+    }
+
+    @Override
+    public String toString() {
+        return Nome;
     }
    
     

@@ -16,4 +16,5 @@ public interface IClienteDAO {
     public void adiciona(Cliente cliente);
     public Cliente buscarPorID(Integer Id);
     public List<Cliente> listarComFiltro(Integer Id, String Nome, String CPF, String Telefone);
+    public List<Cliente> listarTodos();
 }

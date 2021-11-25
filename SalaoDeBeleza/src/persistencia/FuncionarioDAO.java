@@ -95,7 +95,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                funcionarios.add(new Funcionario(rs.getInt("Id"), rs.getString("Nome"), rs.getString("CPF"),rs.getInt("IdFuncao")));
+                funcionarios.add(new Funcionario((Integer) rs.getInt("ID"), rs.getString("Nome"),  rs.getString("CPF"), toCalendar(rs.getDate("DataNascimento")), rs.getInt("ComissaoPorcentagemPadrao"),  rs.getInt("IdFuncao"), rs.getFloat("ValorComissaoAPagar")));
             }
         }
         catch (SQLException ex) {    
@@ -116,7 +116,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             ResultSet rs = ps.executeQuery();
             if (rs != null && rs.next()) {
                 //Alterar construtor para receber data de nascimento e porcentagem comissao padrao
-                funcionario = new Funcionario((Integer) rs.getInt("ID"), rs.getString("Nome"),  rs.getString("CPF"), toCalendar(rs.getDate("DataNascimento")), rs.getInt("ComissaoPorcentagemPadrao"),  rs.getInt("IdFuncao"));
+                funcionario = new Funcionario((Integer) rs.getInt("ID"), rs.getString("Nome"),  rs.getString("CPF"), toCalendar(rs.getDate("DataNascimento")), rs.getInt("ComissaoPorcentagemPadrao"),  rs.getInt("IdFuncao"), rs.getFloat("ValorComissaoAPagar"));
             }
             
         }
@@ -131,5 +131,22 @@ public class FuncionarioDAO implements IFuncionarioDAO {
         cal.setTime(date);
         return cal;
 }
+
+    @Override
+    public void atualizaValorAPagar(Float valor, Integer id) {
+        String sql = "UPDATE FUNCIONARIO SET ValorComissaoAPagar = ? " 
+                + " WHERE id = ?";
+        try 
+        {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setFloat(1, valor);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            
+        }
+        catch (SQLException ex) {    
+            System.err.println("Houve um erro..." + ex.getMessage());
+        }    
+    }
     
 }

@@ -7,6 +7,7 @@ package apresentacao;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import negocio.Sessao;
 import negocio.Usuario;
 import persistencia.IUsuarioDAO;
 import persistencia.UsuarioDAO;
@@ -16,7 +17,7 @@ import persistencia.UsuarioDAO;
  * @author joaos
  */
 public class fmLogin extends javax.swing.JFrame {
-
+    public Integer IdUsuario;
     /**
      * Creates new form fmLogin
      */
@@ -139,6 +140,8 @@ public class fmLogin extends javax.swing.JFrame {
         IUsuarioDAO dao = new UsuarioDAO();
 
         if (dao.isLoginValido(usuario)) {
+            
+            Sessao.setIdUsuario( dao.pegarId(usuario.getUsuario()));
             fmPrincipal principal = new fmPrincipal();
             principal.setVisible(true);
             principal.setExtendedState(JFrame.MAXIMIZED_BOTH);

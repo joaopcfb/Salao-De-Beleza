@@ -45,6 +45,7 @@ public class fmCadastroDeCliente extends javax.swing.JInternalFrame {
         btCadastrar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Cadastro De Cliente");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
@@ -146,7 +147,7 @@ public class fmCadastroDeCliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
+                        .addGap(75, 75, 75)
                         .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
         );

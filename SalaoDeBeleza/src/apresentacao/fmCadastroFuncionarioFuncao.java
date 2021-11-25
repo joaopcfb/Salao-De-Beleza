@@ -39,6 +39,7 @@ public class fmCadastroFuncionarioFuncao extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Cadastrar Função de Funcionário");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

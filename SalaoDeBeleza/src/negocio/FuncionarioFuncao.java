@@ -10,8 +10,8 @@ package negocio;
  * @author joaos
  */
 public class FuncionarioFuncao {
-    Integer id;
-    String Descricao;
+    private Integer id;
+    private String Descricao;
 
     public FuncionarioFuncao(Integer id, String Descricao) {
         this.id = id;

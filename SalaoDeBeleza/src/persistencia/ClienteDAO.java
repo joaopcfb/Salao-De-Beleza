@@ -64,7 +64,6 @@ public class ClienteDAO implements IClienteDAO{
             ps.setInt(1, Id);
             ResultSet rs = ps.executeQuery();
             if (rs != null && rs.next()) {
-                //Alterar construtor para receber data de nascimento e porcentagem comissao padrao
                 cliente = new Cliente((Integer) rs.getInt("ID"), rs.getString("Nome"),  rs.getString("CPF"), toCalendar(rs.getDate("DataNascimento")), rs.getString("Telefone"));
             }
             
@@ -132,5 +131,25 @@ public class ClienteDAO implements IClienteDAO{
         Calendar cal = Calendar.getInstance();
         cal.setTime(data);
         return cal;
+    }
+
+    @Override
+    public List<Cliente> listarTodos() {
+         String sql = "SELECT * FROM Cliente";
+         
+        List<Cliente> clientes = new ArrayList<Cliente>() ;
+        try 
+        {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                clientes.add(new Cliente((Integer) rs.getInt("ID"), rs.getString("Nome"),  rs.getString("CPF"), toCalendar(rs.getDate("DataNascimento")), rs.getString("Telefone")));
+            }
+            
+        }
+        catch (SQLException ex) {    
+            System.err.println("Houve um erro..." + ex.getMessage());
+        }    
+        return clientes;  
     }
 }

@@ -68,6 +68,7 @@ public class fmCadastroDeFuncionario extends javax.swing.JInternalFrame {
         btCadastrar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Cadastro de Funcionario");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {

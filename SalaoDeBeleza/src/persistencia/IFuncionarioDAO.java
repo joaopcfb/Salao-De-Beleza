@@ -15,5 +15,6 @@ import negocio.Funcionario;
 public interface IFuncionarioDAO {
     public void adiciona(Funcionario funcionario);
     public Funcionario buscarPorID(Integer Id);
+    public void atualizaValorAPagar(Float valor, Integer id);
     public List<Funcionario> listarComFiltro(Integer Id, String Nome, String CPF, Integer idFuncao);
 }

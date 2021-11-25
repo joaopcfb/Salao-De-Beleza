@@ -66,6 +66,9 @@ public class fmListagemDeCliente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListagemFunc = new javax.swing.JTable();
 
+        setClosable(true);
+        setTitle("Listagem de cliente");
+
         txtTermo.setText(" ");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));

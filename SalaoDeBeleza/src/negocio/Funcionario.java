@@ -13,12 +13,15 @@ import java.util.Calendar;
  */
 public class Funcionario {
     private Integer Id;
+    private int IdFuncao;
+    private Integer IdUsuario;
     private String Nome;
     private String CPF;
     private Calendar DataNascimento;
     private int ComissaoPorcentagemPadrao;
-    private int IdFuncao;
-    private Integer IdUsuario;
+    Float ValorComissaoAPagar;
+
+    
 
     public Funcionario(String Nome, String CPF, Calendar DataNascimento, int ComissaoPorcentagemPadrao, int IdFuncao, Integer IdUsuario) {
         this.Nome = Nome;
@@ -38,7 +41,7 @@ public class Funcionario {
         this.IdUsuario = IdUsuario;
     }
     
-    public Funcionario(Integer Id, String Nome, String CPF, Calendar DataNascimento, int ComissaoPorcentagemPadrao, int IdFuncao) {
+    public Funcionario(Integer Id, String Nome, String CPF, Calendar DataNascimento, int ComissaoPorcentagemPadrao, int IdFuncao, Float ValorComissaoAPagar) {
         this.Id = Id;
         this.Nome = Nome;
         this.CPF = CPF;
@@ -46,8 +49,17 @@ public class Funcionario {
         this.ComissaoPorcentagemPadrao = ComissaoPorcentagemPadrao;
         this.IdFuncao = IdFuncao;
         this.IdUsuario = IdUsuario;
+        this.ValorComissaoAPagar = ValorComissaoAPagar;
     }
 
+    public Float getValorComissaoAPagar() {
+        return ValorComissaoAPagar;
+    }
+
+    public void setValorComissaoAPagar(Float ValorComissaoAPagar) {
+        this.ValorComissaoAPagar = ValorComissaoAPagar;
+    }
+    
     public Funcionario() {
          //To change body of generated methods, choose Tools | Templates.
     }
@@ -110,7 +122,10 @@ public class Funcionario {
         this.IdUsuario = IdUsuario;
     }
     
-    
+    @Override
+    public String toString() {
+        return Nome;
+    }
     
     
 }
