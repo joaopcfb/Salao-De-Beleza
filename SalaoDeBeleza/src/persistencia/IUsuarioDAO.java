@@ -15,6 +15,7 @@ import negocio.Usuario;
 public interface IUsuarioDAO {
     public void adiciona(Usuario login);
     public boolean isLoginValido(Usuario login);
-    public void visualiza(Usuario login);
+    public Integer pegarId(String usuario);
+    public Usuario buscarPorID(Integer id);
     public List<Usuario> listarTodos();
 }

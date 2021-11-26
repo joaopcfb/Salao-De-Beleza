@@ -5,19 +5,79 @@
  */
 package apresentacao;
 
+import com.mysql.jdbc.StringUtils;
+import com.toedter.calendar.JCalendar;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import javafx.scene.paint.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import negocio.Agendamento;
+import negocio.Funcionario;
+import negocio.Sessao;
+import negocio.Usuario;
+import persistencia.AgendamentoDAO;
+import persistencia.ClienteDAO;
+import persistencia.FuncionarioDAO;
+import persistencia.IAgendamentoDAO;
+import persistencia.IClienteDAO;
+import persistencia.IFuncionarioDAO;
+import persistencia.IUsuarioDAO;
+import persistencia.UsuarioDAO;
+
 /**
  *
  * @author joaos
  */
 public class fmPrincipal extends javax.swing.JFrame {
-
+    private static final long serialVersionUID = 1L;
+    private JCalendar cal;
+    private JPanel contentpane;
+    public Integer IdUsuario;
+    
     /**
      * Creates new form fmPrincipal
      */
     public fmPrincipal() {
+        
         initComponents();
+        contentpane = new JPanel(new BorderLayout());
+        
+
+        IUsuarioDAO usuariodao = new UsuarioDAO();
+        Usuario usuario = usuariodao.buscarPorID(Sessao.getIdUsuario());
+        System.out.println(usuario.getTipoUsuario());      
+        if (usuario.getTipoUsuario() != null && usuario.getTipoUsuario().equals("administrador")) {
+            menuFuncinarios.setEnabled(true);
+            menuClientes.setEnabled(true);
+            MenuConfiguracoes.setEnabled(true);            
+            menuFinanceiro.setEnabled(true); 
+        }
+        if (usuario.getTipoUsuario() != null && usuario.getTipoUsuario().equals("atendente")) {
+            menuClientes.setEnabled(true);           
+        }
+        if (usuario.getTipoUsuario() != null && usuario.getTipoUsuario().equals("financeiro")) {
+             menuFinanceiro.setEnabled(true); 
+        }
+        IFuncionarioDAO dao = new FuncionarioDAO();
+        
+        for (Funcionario f: dao.listarComFiltro(null, null, null, null))
+        {
+            cbFuncionario.addItem(f);
+        }
+        System.out.println(Sessao.getIdUsuario());
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,72 +87,273 @@ public class fmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbAgenda = new javax.swing.JTable();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btNovoAtendimento = new javax.swing.JButton();
+        cbFuncionario = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuFuncinarios = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        MenuConfiguracoes = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        menuFinanceiro = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Salão de Beleza");
 
-        jMenu1.setText("Cadastros");
+        jDesktopPane1.setDoubleBuffered(true);
+        jDesktopPane1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                jDesktopPane1ComponentRemoved(evt);
+            }
+        });
+        jDesktopPane1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDesktopPane1PropertyChange(evt);
+            }
+        });
+
+        tbAgenda.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tbAgenda.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tbAgenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"07:00", null, null, null},
+                {"07:30", null, null, null},
+                {"08:00", null, null, null},
+                {"08:30", null, null, null},
+                {"09:00", null, null, null},
+                {"09:30", null, null, null},
+                {"10:00", null, null, null},
+                {"10:30", null, null, null},
+                {"11:00", null, null, null},
+                {"11:30", null, null, null},
+                {"12:00", null, null, null},
+                {"12:30", null, null, null},
+                {"13:00", null, null, null},
+                {"13:30", null, null, null},
+                {"14:00", null, null, null},
+                {"14:30", null, null, null},
+                {"15:00", null, null, null},
+                {"15:30", null, null, null},
+                {"16:00", null, null, null},
+                {"16:30", null, null, null},
+                {"17:30", null, null, null},
+                {"18:00", null, null, null},
+                {"18:30", null, null, null},
+                {"19:00", null, null, null},
+                {"19:30", null, null, null},
+                {"20:00", null, null, null}
+            },
+            new String [] {
+                "Horario", "Codigo de Atendimento", "Servico", "Cliente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbAgenda.setRequestFocusEnabled(false);
+        tbAgenda.setRowHeight(20);
+        tbAgenda.setShowVerticalLines(false);
+        tbAgenda.setUpdateSelectionOnSort(false);
+        tbAgenda.setVerifyInputWhenFocusTarget(false);
+        tbAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbAgendaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbAgenda);
+
+        jCalendar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jCalendar1.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
+        jCalendar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCalendar1MouseClicked(evt);
+            }
+        });
+        jCalendar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jCalendar1PropertyChange(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel1.setText("Agenda");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        btNovoAtendimento.setText("Novo Atendimento");
+        btNovoAtendimento.setEnabled(false);
+        btNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoAtendimentoActionPerformed(evt);
+            }
+        });
+
+        cbFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbFuncionario.setFocusCycleRoot(true);
+        cbFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFuncionarioActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Funcionario:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btNovoAtendimento)
+                    .addComponent(cbFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCalendar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        menuFuncinarios.setText("Funcionarios");
+        menuFuncinarios.setEnabled(false);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Funcionarios");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuFuncinarios.add(jMenuItem2);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Pacientes");
+        jMenuItem1.setText("Cadastro De Funcionarios");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuFuncinarios.add(jMenuItem1);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Anamnese");
-        jMenu1.add(jMenuItem2);
+        jMenuBar1.add(menuFuncinarios);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Sessões");
-        jMenu1.add(jMenuItem3);
+        menuClientes.setText("Clientes");
+        menuClientes.setEnabled(false);
 
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Processos");
-
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setText("Agendamento");
-        jMenu2.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Configurações");
-
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem5.setText("Cadastrar Funcionario");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setText("Clientes");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        menuClientes.add(jMenuItem6);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setText("Cadastro De Clientes");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        menuClientes.add(jMenuItem4);
+
+        jMenuBar1.add(menuClientes);
+
+        MenuConfiguracoes.setText("Configurações");
+        MenuConfiguracoes.setEnabled(false);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem8.setText("Cadastrar Serviço");
+        jMenuItem8.setText("Cadastrar Funcao");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem8);
+        MenuConfiguracoes.add(jMenuItem8);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(MenuConfiguracoes);
+
+        menuFinanceiro.setText("Financeiro");
+        menuFinanceiro.setEnabled(false);
+
+        jMenuItem3.setText("Comissão");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menuFinanceiro.add(jMenuItem3);
+
+        jMenuItem5.setText("Pagamento");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menuFinanceiro.add(jMenuItem5);
+
+        jMenuBar1.add(menuFinanceiro);
 
         jMenu5.setText("Ajuda");
 
@@ -113,15 +374,11 @@ public class fmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 69, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 234, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
 
         pack();
@@ -129,23 +386,163 @@ public class fmPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
- 
+        fmCadastroDeFuncionario cadastroDeFuncionario = new fmCadastroDeFuncionario();
+        jDesktopPane1.add(cadastroDeFuncionario);
+        cadastroDeFuncionario.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
+       fmSobre sobre = new fmSobre();
+       jDesktopPane1.add(sobre);
+       sobre.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
+       fmCadastroFuncionarioFuncao cadastroFuncionarioFuncao = new fmCadastroFuncionarioFuncao();
+        jDesktopPane1.add(cadastroFuncionarioFuncao);
+        cadastroFuncionarioFuncao.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        fmListagemDeFuncionario listagemDeFuncionario = new fmListagemDeFuncionario();
+        jDesktopPane1.add(listagemDeFuncionario);
+        listagemDeFuncionario.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        fmCadastroDeCliente cadastroDeCliente = new fmCadastroDeCliente();
+        jDesktopPane1.add(cadastroDeCliente);
+        cadastroDeCliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        fmListagemDeCliente listagemDeCliente = new fmListagemDeCliente();
+        jDesktopPane1.add(listagemDeCliente);
+        listagemDeCliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void btNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoAtendimentoActionPerformed
+        // TODO add your handling code here:
+        Funcionario funcionario = (Funcionario) cbFuncionario.getSelectedItem();
+        fmCadastroAtendimento cadastroAtendimento = new fmCadastroAtendimento(funcionario);
+        jDesktopPane1.add(cadastroAtendimento);
+        cadastroAtendimento.setVisible(true);
+    }//GEN-LAST:event_btNovoAtendimentoActionPerformed
+    
+    private void cbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFuncionarioActionPerformed
+        // TODO add your handling code here:
+        atualizaAgenda();
+        if (!cbFuncionario.getSelectedItem().equals(" "))
+        {
+            btNovoAtendimento.setEnabled(true);
+        }else
+        {
+            btNovoAtendimento.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_cbFuncionarioActionPerformed
+
+    private void tbAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAgendaMouseClicked
+        // TODO add your handling code here:
+        int linha = tbAgenda.getSelectedRow();
+        if (evt.getClickCount() == 2 && tbAgenda.getValueAt(linha, 1) != null) {
+
+            Funcionario funcionario = (Funcionario) cbFuncionario.getSelectedItem();
+            IAgendamentoDAO dao = new AgendamentoDAO();
+            Agendamento agendamento = dao.buscarPorID((int)tbAgenda.getValueAt(linha, 1));
+            if (agendamento.isIndFinalizado()) {
+                JOptionPane.showMessageDialog(null, "Não é possivel alterar o atendimento pois este já foi finalizado!");
+                return;
+            }
+            fmCadastroAtendimento cadastroAtendimento = new fmCadastroAtendimento(funcionario, agendamento);
+            jDesktopPane1.add(cadastroAtendimento);
+            cadastroAtendimento.setVisible(true);
+
+        }
+    }//GEN-LAST:event_tbAgendaMouseClicked
+
+    private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
+        // TODO add your handling code here:
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+        String data = formato.format(jCalendar1.getDate()); 
+
+        atualizaAgenda();
+    }//GEN-LAST:event_jCalendar1PropertyChange
+
+    private void jCalendar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCalendar1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCalendar1MouseClicked
+
+    private void jDesktopPane1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDesktopPane1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDesktopPane1PropertyChange
+
+    private void jDesktopPane1ComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jDesktopPane1ComponentRemoved
+        // TODO add your handling code here:
+        atualizaAgenda();
+    }//GEN-LAST:event_jDesktopPane1ComponentRemoved
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        fmComissoes comissoes = new fmComissoes();
+        jDesktopPane1.add(comissoes);
+        comissoes.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        fmPagamento pagamento = new fmPagamento();
+        jDesktopPane1.add(pagamento);
+        pagamento.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void atualizaAgenda()
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(jCalendar1.getDate());
+        IAgendamentoDAO dao = new AgendamentoDAO();  
+        if (!cbFuncionario.getSelectedItem().equals(" ")) {
+            Funcionario funcionario = (Funcionario) cbFuncionario.getSelectedItem();
+            insereListagemNaTabela(dao.listarComFiltro( null, cal, funcionario.getId()));
+        }
+
+
+    }
+    
+    private void insereListagemNaTabela(List<Agendamento> agendamentos)
+    {
+        resetaTabela();
+        DefaultTableModel modelo = (DefaultTableModel) tbAgenda.getModel();
+        
+        for (Agendamento a: agendamentos)
+        {
+            for (int i = 0; i < 25; i++) {
+                String horaTabela = (String) modelo.getValueAt(i, 0);
+                if (horaTabela.equals(a.getHora())) {   
+                    IClienteDAO clientedao = new ClienteDAO();
+                    modelo.setValueAt(a.getId(), i, 1);
+                    modelo.setValueAt(a.getDescricao(), i, 2);
+                    modelo.setValueAt(clientedao.buscarPorID(a.getIdCliente()).getNome(), i, 3);
+                }
+            }
+
+        }
+    }
+    private void resetaTabela()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tbAgenda.getModel();
+        for (int i = 0; i < 25; i++) 
+        {
+            modelo.setValueAt(null, i, 2);
+            modelo.setValueAt(null, i, 1);
+            modelo.setValueAt(null, i, 3);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -182,9 +579,13 @@ public class fmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu MenuConfiguracoes;
+    private javax.swing.JButton btNovoAtendimento;
+    private javax.swing.JComboBox<Object> cbFuncionario;
+    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -192,8 +593,14 @@ public class fmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu menuClientes;
+    private javax.swing.JMenu menuFinanceiro;
+    private javax.swing.JMenu menuFuncinarios;
+    private javax.swing.JTable tbAgenda;
     // End of variables declaration//GEN-END:variables
 }
