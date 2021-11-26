@@ -289,16 +289,16 @@ public class fmListagemDeCliente extends javax.swing.JInternalFrame {
         String termo = txtTermo.getText();
         List<Cliente> clientes = new ArrayList<Cliente>();
 
-        if ("Codigo".equals(campo) && termo != "") {
+        if (campo == "Codigo") {
             clientes = dao.listarComFiltro(Integer.parseInt(termo), null, null, null);
         }
-        else if ("Nome".equals(campo) && termo != "") {
+        else if (campo == "Nome") {
                     clientes = dao.listarComFiltro(null, termo, null, null);
                 }
-        else if ("CPF".equals(campo) && termo != "") {
+        else if (campo == "CPF") {
                 clientes = dao.listarComFiltro(null, null, termo, null);
             }
-        else if ("Telefone".equals(campo) && termo != "") {
+        else if (campo == "Telefone") {
             clientes = dao.listarComFiltro(null, null, null, termo);
         }
             else

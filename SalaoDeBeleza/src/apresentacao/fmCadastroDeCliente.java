@@ -176,7 +176,7 @@ public class fmCadastroDeCliente extends javax.swing.JInternalFrame {
             String cpf = null;
             String telefone = null;
             
-            if (txtDataNasc.getText().isEmpty()) {
+            if (!txtDataNasc.getText().isEmpty()) {
                 SimpleDateFormat data = new SimpleDateFormat("dd/mm/yyyy");
                 dataNasc = Calendar.getInstance();
                 try
@@ -198,9 +198,9 @@ public class fmCadastroDeCliente extends javax.swing.JInternalFrame {
                 return;
             }
             
-            if (txtCPF.getText().isEmpty()) {
-                cpf = txtCPF.getText();
-            }
+
+            cpf = txtCPF.getText();
+            
             
             if (!txtTelefone.getText().isEmpty()) {
                 telefone = txtTelefone.getText();

@@ -89,7 +89,7 @@ public class ClienteDAO implements IClienteDAO{
             if (!where) {
                 sql += " WHERE"; 
             }
-            sql += " Nome LIKE " + "'%" + Nome + "%'";
+            sql += " Nome LIKE " + "'%" + Nome.trim() + "%'";
         }
         //ACERTAR FILTRO DE CPF
         if (CPF != null) {
@@ -107,11 +107,12 @@ public class ClienteDAO implements IClienteDAO{
         }
         
         List<Cliente> clientes = new ArrayList<Cliente>() ;
-        
+
         try 
         {
              
             PreparedStatement ps = connection.prepareStatement(sql);
+            System.out.println(ps);
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){

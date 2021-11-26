@@ -4,15 +4,17 @@ USE salaodebeleza;
 
 /* Lógico_1: */
 
+/* Lógico_1: */
+
 CREATE TABLE Usuario (
-    Id int(11) PRIMARY KEY,
+    Id int(11) AUTO_INCREMENT PRIMARY KEY,
     Usuario VARCHAR (60),
     Senha VARCHAR (60),
     TipoUsuario Varchar(30)
 );
 
 CREATE TABLE Funcionario (
-    Id int(11) PRIMARY KEY,
+    Id int(11) AUTO_INCREMENT PRIMARY KEY,
     IdFuncao int(11),
     IdUsuario int(11),
     Nome VARCHAR (60),
@@ -24,11 +26,12 @@ CREATE TABLE Funcionario (
 );
 
 CREATE TABLE Agendamento (
-    Id int(11) PRIMARY KEY,
+    Id int(11) AUTO_INCREMENT PRIMARY KEY,
     IdCliente int(11),
     IdFuncionario int(11),
     Descricao varchar(60),
-    DataHora DATETIME,
+    Data DATE,
+    Hora char,
     Valor float,
     Observacao text,
     PorcentagemComissao int(3),
@@ -45,12 +48,12 @@ CREATE TABLE Cliente (
 );
 
 CREATE TABLE FuncionarioFuncao (
-    Id int(11) PRIMARY KEY,
+    Id int(11) AUTO_INCREMENT PRIMARY KEY,
     Descricao VARCHAR (60)
 );
 
 CREATE TABLE AgendamentoHistorico (
-    Id int(11) PRIMARY KEY,
+    Id int(11) AUTO_INCREMENT PRIMARY KEY,
     IdAgendamento int(11),
     IdUsuario int(11),
     Descricao VARCHAR (60),
@@ -58,7 +61,7 @@ CREATE TABLE AgendamentoHistorico (
 );
 
 CREATE TABLE Comissao (
-    Id int(11) PRIMARY KEY,
+    Id int(11) AUTO_INCREMENT PRIMARY KEY,
     IdFuncionario int(11),
     IdAgendamento int(11),
     DataCriacao DATETIME,
@@ -97,6 +100,5 @@ ALTER TABLE Comissao ADD CONSTRAINT FK_Comissao_2
 ALTER TABLE Comissao ADD CONSTRAINT FK_Comissao_3
     FOREIGN KEY (IdAgendamento)
     REFERENCES Agendamento (Id);
-    
     
     insert into usuario (usuario, senha) values ("admin", "admin");
